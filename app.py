@@ -24,8 +24,6 @@ def crear_tabla():
     conexion.close()
 
 
-@app.route("/", methods=["GET", "POST"])
-
 def obtener_usuarios():
     conexion = conectar_db()
 
@@ -37,6 +35,8 @@ def obtener_usuarios():
 
     return usuarios
 
+
+@app.route("/", methods=["GET", "POST"])
 def inicio():
     if request.method == "POST":
         nombre = request.form["nombre"]
@@ -58,15 +58,13 @@ def inicio():
 
 @app.route("/usuarios")
 def usuarios():
-    conexion = conectar_db()
+    usuarios = obtener_usuarios()
 
-    usuarios = conexion.execute(
-        "SELECT * FROM usuarios"
-    ).fetchall()
+    return render_template(
+        "usuarios.html",
+        usuarios=usuarios
+    )
 
-    conexion.close()
-
-    return render_template("usuarios.html", usuarios=usuarios)
 
 @app.route("/editar/<int:id>", methods=["GET", "POST"])
 def editar(id):
@@ -83,7 +81,10 @@ def editar(id):
         conexion.commit()
         conexion.close()
 
-        return render_template("usuarios.html", usuarios=obtener_usuarios())
+        return render_template(
+            "usuarios.html",
+            usuarios=obtener_usuarios()
+        )
 
     usuario = conexion.execute(
         "SELECT * FROM usuarios WHERE id = ?",
@@ -92,7 +93,11 @@ def editar(id):
 
     conexion.close()
 
-    return render_template("editar.html", usuario=usuario)
+    return render_template(
+        "editar.html",
+        usuario=usuario
+    )
+
 
 @app.route("/eliminar/<int:id>")
 def eliminar(id):
@@ -104,14 +109,12 @@ def eliminar(id):
     )
 
     conexion.commit()
-
-    usuarios = conexion.execute(
-        "SELECT * FROM usuarios"
-    ).fetchall()
-
     conexion.close()
 
-    return render_template("usuarios.html", usuarios=usuarios)
+    return render_template(
+        "usuarios.html",
+        usuarios=obtener_usuarios()
+    )
 
 
 crear_tabla()
@@ -119,14 +122,3 @@ crear_tabla()
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-def obtener_usuarios():
-    conexion = conectar_db()
-
-    usuarios = conexion.execute(
-        "SELECT * FROM usuarios"
-    ).fetchall()
-
-    conexion.close()
-
-    return usuarios

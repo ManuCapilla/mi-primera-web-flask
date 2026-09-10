@@ -114,8 +114,10 @@ def eliminar(id):
     return render_template("usuarios.html", usuarios=usuarios)
 
 
+crear_tabla()
+
+
 if __name__ == "__main__":
-    crear_tabla()
     app.run(debug=True)
 
 def obtener_usuarios():

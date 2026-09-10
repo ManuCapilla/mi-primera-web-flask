@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <h1>Usuarios registrados</h1>
+
+    {% if usuarios %}
+
+        {% for usuario in usuarios %}
+
+            <p>
+                {{ usuario["id"] }} — {{ usuario["nombre"] }}
+
+                <a href="/editar/{{ usuario['id'] }}">
+                    ✏️ Editar
+                </a>
+
+                <a href="/eliminar/{{ usuario['id'] }}">
+                    🗑️ Eliminar
+                </a>
+            </p>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No hay usuarios registrados todavía.</p>
+
+    {% endif %}
+
+</body>
+
+</html>

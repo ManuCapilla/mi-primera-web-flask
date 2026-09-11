@@ -8,33 +8,155 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
+<div id="modal-eliminar" class="modal">
+
+    <div class="modal-contenido">
+
+        <div class="modal-icono">
+            🗑️
+        </div>
+
+        <h2>Eliminar usuario</h2>
+
+        <p>
+            ¿Seguro que querés eliminar a
+            <strong id="nombre-usuario"></strong>?
+        </p>
+
+        <div class="modal-botones">
+
+            <button
+                class="btn-cancelar"
+                onclick="cerrarModal()"
+            >
+                Cancelar
+            </button>
+
+            <a
+                id="confirmar-eliminar"
+                class="btn-confirmar-eliminar"
+                href="#"
+            >
+                Eliminar
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function confirmarEliminacion(id, nombre) {
+
+    document.getElementById("nombre-usuario").textContent = nombre;
+
+    document.getElementById("confirmar-eliminar").href =
+        "/eliminar/" + id;
+
+    document.getElementById("modal-eliminar").classList.add("mostrar");
+}
+
+
+function cerrarModal() {
+
+    document.getElementById("modal-eliminar").classList.remove("mostrar");
+
+}
+
+</script>
+
 <body>
 
-    <h1>Usuarios registrados</h1>
+    <nav class="navbar">
 
-    {% if usuarios %}
+        <div class="logo">
+            Mi Web 🐍
+        </div>
 
-        {% for usuario in usuarios %}
+        <div class="nav-links">
+            <a href="/">🏠 Inicio</a>
+            <a href="/usuarios">👥 Usuarios</a>
+        </div>
 
-            <p>
-                {{ usuario["id"] }} — {{ usuario["nombre"] }}
+    </nav>
 
-                <a href="/editar/{{ usuario['id'] }}">
-                    ✏️ Editar
-                </a>
 
-                <a href="/eliminar/{{ usuario['id'] }}">
-                    🗑️ Eliminar
-                </a>
-            </p>
+    <main class="contenido">
 
-        {% endfor %}
+        <h1>Usuarios registrados</h1>
 
-    {% else %}
+        {% if usuarios %}
 
-        <p>No hay usuarios registrados todavía.</p>
+            <div class="tabla-contenedor">
 
-    {% endif %}
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for usuario in usuarios %}
+
+                            <tr>
+
+                                <td>
+                                    {{ usuario["id"] }}
+                                </td>
+
+                                <td>
+                                    {{ usuario["nombre"] }}
+                                </td>
+
+                                <td>
+
+                                    <a
+                                        class="btn-editar"
+                                        href="/editar/{{ usuario['id'] }}"
+                                    >
+                                        ✏️ Editar
+                                    </a>
+
+                                    <a
+                                    <button
+    class="btn-eliminar"
+    onclick="confirmarEliminacion('{{ usuario['id'] }}', '{{ usuario['nombre'] }}')"
+>
+    🗑️ Eliminar
+</button>
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="mensaje">
+
+                <p>No hay usuarios registrados todavía.</p>
+
+            </div>
+
+        {% endif %}
+
+    </main>
 
 </body>
 

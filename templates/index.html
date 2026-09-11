@@ -1,28 +1,65 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Mi primera web</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
 </head>
 
 <body>
 
-    <h1>¡Bienvenido!</h1>
+    <nav class="navbar">
 
-    <p>Escribí tu nombre:</p>
+        <div class="logo">
+            Mi Web 🐍
+        </div>
 
-    <form method="POST">
-        <input type="text" name="nombre" placeholder="Tu nombre" required>
+        <div class="nav-links">
+            <a href="/">🏠 Inicio</a>
+            <a href="/usuarios">👥 Usuarios</a>
+        </div>
 
-        <button type="submit">Entrar</button>
-    </form>
+    </nav>
 
-    {% if nombre %}
-     <h2>¡Hola, {{ nombre }}! 👋</h2>
-     <p>Bienvenido a nuestra web 😎</p>
-    {% endif %}
+
+    <main class="contenido">
+
+        <h1>¡Bienvenido!</h1>
+
+        <p>Escribí tu nombre:</p>
+
+        <form method="POST">
+
+            <input
+                type="text"
+                name="nombre"
+                placeholder="Tu nombre"
+                required
+            >
+
+            <button type="submit">
+                Entrar
+            </button>
+
+        </form>
+
+
+        {% if nombre %}
+
+            <div class="mensaje">
+
+                <h2>¡Hola, {{ nombre }}! 👋</h2>
+
+                <p>Bienvenido a nuestra web 😎</p>
+
+            </div>
+
+        {% endif %}
+
+    </main>
 
 </body>
+
+</html>

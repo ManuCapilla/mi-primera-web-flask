@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Iniciar sesión</title>
+    <title>Crear cuenta</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -17,8 +17,11 @@
         </div>
 
         <div class="nav-links">
+
             <a href="/">🏠 Inicio</a>
+
             <a href="/login">🔐 Iniciar sesión</a>
+
         </div>
 
     </nav>
@@ -28,9 +31,9 @@
 
         <div class="login-card">
 
-            <h1>Iniciar sesión</h1>
+            <h1>Crear cuenta</h1>
 
-            <p>Ingresá tus datos para continuar.</p>
+            <p>Registrate para ingresar.</p>
 
             {% if error %}
                 <div class="error-mensaje">
@@ -48,7 +51,7 @@
                     type="text"
                     id="usuario"
                     name="usuario"
-                    placeholder="Tu usuario"
+                    placeholder="Elegí un usuario"
                     required
                 >
 
@@ -61,21 +64,16 @@
                     type="password"
                     id="password"
                     name="password"
-                    placeholder="Tu contraseña"
+                    placeholder="Elegí una contraseña"
                     required
                 >
 
 
                 <button type="submit">
-                    Ingresar
+                    Crear cuenta
                 </button>
 
             </form>
-
-            <p>
-    ¿No tenés una cuenta?
-    <a href="/registro">Crear cuenta</a>
-</p>
 
         </div>
 

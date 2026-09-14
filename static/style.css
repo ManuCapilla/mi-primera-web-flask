@@ -263,3 +263,12 @@ tr:hover {
         transform: scale(1);
     }
 }
+
+.usuario-logueado {
+    background-color: #eef2ff;
+    color: #4f46e5;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: bold;
+}

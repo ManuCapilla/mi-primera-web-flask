@@ -75,6 +75,41 @@ def login():
 
     return render_template("login.html")
 
+@app.route("/registro", methods=["GET", "POST"])
+def registro():
+
+    if request.method == "POST":
+
+        usuario = request.form["usuario"]
+        password = request.form["password"]
+
+        password_hash = generate_password_hash(password)
+
+        conexion = conectar_db()
+
+        try:
+
+            conexion.execute(
+                "INSERT INTO cuentas (usuario, password) VALUES (?, ?)",
+                (usuario, password_hash)
+            )
+
+            conexion.commit()
+            conexion.close()
+
+            return redirect(url_for("login"))
+
+        except sqlite3.IntegrityError:
+
+            conexion.close()
+
+            return render_template(
+                "registro.html",
+                error="Ese usuario ya existe."
+            )
+
+    return render_template("registro.html")
+
 @app.route("/logout")
 def logout():
 

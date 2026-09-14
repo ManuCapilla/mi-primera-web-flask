@@ -17,9 +17,30 @@
         </div>
 
         <div class="nav-links">
-            <a href="/">🏠 Inicio</a>
-            <a href="/usuarios">👥 Usuarios</a>
-        </div>
+
+    {% if session.get("usuario") %}
+
+        <span class="usuario-logueado">
+    👋 Hola, {{ session["usuario"] }}
+</span>
+
+    {% endif %}
+
+    <a href="/">🏠 Inicio</a>
+
+    <a href="/usuarios">👥 Usuarios</a>
+
+    {% if session.get("usuario") %}
+
+        <a href="/logout">🚪 Cerrar sesión</a>
+
+    {% else %}
+
+        <a href="/login">🔐 Iniciar sesión</a>
+
+    {% endif %}
+
+</div>
 
     </nav>
 
